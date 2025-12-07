@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "106068969992",
+    "project_id": "cubelearning-76a4a",
+    "storage_bucket": "cubelearning-76a4a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:106068969992:android:305bf09ad9cc86cb8b9fbd",
+        "android_client_info": {
+          "package_name": "com.example.collectthecube"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbuFOkaCl3-3mx4VOCbyPg7xqmSkQR5uQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
