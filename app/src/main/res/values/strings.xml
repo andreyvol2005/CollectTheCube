@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">CollectTheCube</string>
+    <string name="welcome">Добро пожаловать в CollectTheCube!</string>
+    <string name="login">Войти</string>
+    <string name="register">Регистрация</string>
+    <string name="username">Имя пользователя</string>
+    <string name="password">Пароль</string>
+    <string name="register_button">Зарегистрироваться и начать обучение</string>
+    <string name="login_button">Войти</string>
+    <string name="catalog_title">Этапы обучения</string>
+    <string name="stage_completed">Изучено</string>
+    <string name="stage_pending">Изучить</string>
+
+    <!-- Этапы обучения -->
+    <string name="learn">Обучение языку вращений</string>
+    <string name="stage1">Сборка правильного креста</string>
+    <string name="stage2">Сборка первого слоя</string>
+    <string name="stage3">Сборка второго слоя</string>
+    <string name="stage4">Сборка креста сверху</string>
+    <string name="stage5">Сборка верхней стороны</string>
+    <string name="stage6">Расстановка рёбер</string>
+    <string name="stage7">Перестановка углов</string>
+</resources>
