@@ -1,4 +1,5 @@
 # CollectTheCube
+<img width="1969" height="1021" alt="изображение" src="https://github.com/user-attachments/assets/f913dbc3-ab7a-4866-b7ef-fad274462d0a" />
 
 <div align="center">
 
