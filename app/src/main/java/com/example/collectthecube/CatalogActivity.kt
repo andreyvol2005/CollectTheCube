@@ -143,7 +143,7 @@ class CatalogActivity : AppCompatActivity() {
 
     private fun initCatalogData() {
         catalogItems = listOf(
-            CatalogItem("Обучение", R.drawable.cube_, RotationGuideActivity::class.java, true),
+            CatalogItem("Язык вращения", R.drawable.cube_, RotationGuideActivity::class.java, true),
             CatalogItem("Этап 1", R.drawable.cube1, Stage1Activity::class.java),
             CatalogItem("Этап 2", R.drawable.cube2, Stage2Activity::class.java),
             CatalogItem("Этап 3", R.drawable.cube3, Stage3Activity::class.java),
