@@ -15,9 +15,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CollectTheCube">
         <activity
-            android:name=".StatisticsActivity"
-            android:exported="false" />
-        <activity
             android:name=".RotationGuideActivity"
             android:exported="false" />
         <activity
