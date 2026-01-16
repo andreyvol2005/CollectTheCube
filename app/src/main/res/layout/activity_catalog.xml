@@ -45,6 +45,7 @@
                 android:elevation="4dp">
 
                 <TextView
+                    android:id="@+id/TitleStats"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Статистика обучения за неделю"
