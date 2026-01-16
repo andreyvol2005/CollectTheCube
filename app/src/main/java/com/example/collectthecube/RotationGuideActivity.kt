@@ -21,11 +21,13 @@ class RotationGuideActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_rotation_guide)
 
-        currentUser = intent.getStringExtra("username") ?: ""
+        if (!AppPreferences.isGuestMode) {
+            currentUser = intent.getStringExtra("username") ?: ""
+            loadProgressFromFirebase()
+            recordSessionInFirebase(0)
+        }
         initViews()
         loadContentFromFirebase()
-        loadProgressFromFirebase()
-        recordSessionInFirebase(0)
     }
 
     private fun recordSessionInFirebase(stageIndex: Int) {
@@ -54,8 +56,12 @@ class RotationGuideActivity : AppCompatActivity() {
         markCompletedButton = findViewById(R.id.markCompletedButton)
         contentContainer = findViewById(R.id.contentContainer)
 
-        markCompletedButton.setOnClickListener {
-            markRotationGuideAsCompleted()
+        if (!AppPreferences.isGuestMode) {
+            markCompletedButton.setOnClickListener {
+                markRotationGuideAsCompleted()
+            }
+        } else {
+            markCompletedButton.text = "Для сохранения необходима авторизация"
         }
     }
 
@@ -249,6 +255,8 @@ class RotationGuideActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        loadProgressFromFirebase()
+        if (!AppPreferences.isGuestMode) {
+            loadProgressFromFirebase()
+        }
     }
 }

@@ -21,13 +21,14 @@ class Stage6Activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_stage6)
 
-        currentUser = intent.getStringExtra("username") ?: ""
-        stageIndex = 5
-
+        if (!AppPreferences.isGuestMode) {
+            currentUser = intent.getStringExtra("username") ?: ""
+            stageIndex = 5
+            loadProgressFromFirebase()
+            recordSessionInFirebase(6)
+        }
         initViews()
         loadContentFromFirebase()
-        loadProgressFromFirebase()
-        recordSessionInFirebase(6)
     }
 
     private fun recordSessionInFirebase(stageIndex: Int) {
@@ -56,8 +57,12 @@ class Stage6Activity : AppCompatActivity() {
         markCompletedButton = findViewById(R.id.markCompletedButton)
         contentContainer = findViewById(R.id.contentContainer)
 
-        markCompletedButton.setOnClickListener {
-            markStageAsCompleted()
+        if (!AppPreferences.isGuestMode) {
+            markCompletedButton.setOnClickListener {
+                markStageAsCompleted()
+            }
+        } else {
+            markCompletedButton.text = "Для сохранения необходима авторизация"
         }
     }
 
@@ -217,6 +222,8 @@ class Stage6Activity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        loadProgressFromFirebase()
+        if (!AppPreferences.isGuestMode) {
+            loadProgressFromFirebase()
+        }
     }
 }

@@ -127,11 +127,10 @@
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:text="Войти гостем"
-            android:backgroundTint="@color/primary_color"
+            android:backgroundTint="@color/secondary_color"
             android:textColor="@color/white"
             android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="20dp" />
+            android:textStyle="bold" />
 
         <!-- Сообщения об ошибках/успехе -->
         <TextView
