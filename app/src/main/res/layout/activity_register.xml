@@ -40,7 +40,7 @@
             android:text="Обучение сборке кубика Рубика"
             android:textSize="16sp"
             android:gravity="center"
-            android:layout_marginBottom="40dp"
+            android:layout_marginBottom="30dp"
             android:textColor="@color/secondary_color" />
 
         <!-- Переключатель режимов -->
@@ -95,7 +95,7 @@
             android:id="@+id/passwordLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="40dp"
+            android:layout_marginBottom="30dp"
             app:hintTextColor="@color/primary_color"
             app:boxStrokeColor="@color/primary_color"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
@@ -121,6 +121,16 @@
             android:textSize="18sp"
             android:textStyle="bold"
             android:layout_marginBottom="20dp" />
+
+        <Button
+            android:id="@+id/guest"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:text="Войти гостем"
+            android:backgroundTint="@color/secondary_color"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <!-- Сообщения об ошибках/успехе -->
         <TextView

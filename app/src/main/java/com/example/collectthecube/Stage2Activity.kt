@@ -21,13 +21,14 @@ class Stage2Activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_stage2)
 
-        currentUser = intent.getStringExtra("username") ?: ""
-        stageIndex = 1
-
+        if (!AppPreferences.isGuestMode) {
+            currentUser = intent.getStringExtra("username") ?: ""
+            stageIndex = 1
+            loadProgressFromFirebase()
+            recordSessionInFirebase(2)
+        }
         initViews()
         loadContentFromFirebase()
-        loadProgressFromFirebase()
-        recordSessionInFirebase(2)
     }
 
     private fun recordSessionInFirebase(stageIndex: Int) {
@@ -231,6 +232,8 @@ class Stage2Activity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        loadProgressFromFirebase()
+        if (!AppPreferences.isGuestMode) {
+            loadProgressFromFirebase()
+        }
     }
 }
