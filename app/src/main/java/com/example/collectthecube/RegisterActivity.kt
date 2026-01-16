@@ -25,6 +25,7 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var usernameEditText: TextInputEditText
     private lateinit var passwordEditText: TextInputEditText
     private lateinit var actionButton: Button
+    private lateinit var guest: Button
     private lateinit var messageTextView: TextView
 
     private val db = Firebase.firestore
@@ -47,6 +48,7 @@ class RegisterActivity : AppCompatActivity() {
         usernameEditText = findViewById(R.id.usernameEditText)
         passwordEditText = findViewById(R.id.passwordEditText)
         actionButton = findViewById(R.id.actionButton)
+        guest = findViewById(R.id.guest)
         messageTextView = findViewById(R.id.messageTextView)
     }
 
@@ -68,6 +70,9 @@ class RegisterActivity : AppCompatActivity() {
             } else {
                 attemptRegistration()
             }
+        }
+        guest.setOnClickListener {
+            attemptLoginGuest()
         }
     }
 
@@ -123,6 +128,7 @@ class RegisterActivity : AppCompatActivity() {
 
                     if (password == savedPassword) {
                         showMessage("Вход успешен!", false)
+                        AppPreferences.isGuestMode = false
                         navigateToCatalog(username, stagesProgress)
                     } else {
                         showMessage("Неверный пароль", true)
@@ -173,6 +179,7 @@ class RegisterActivity : AppCompatActivity() {
                     .add(userData)
                     .addOnSuccessListener { documentReference ->
                         showMessage("Регистрация успешна!", false)
+                        AppPreferences.isGuestMode = false
                         navigateToCatalog(username, "00000000")
                     }
                     .addOnFailureListener {
@@ -180,6 +187,14 @@ class RegisterActivity : AppCompatActivity() {
                     }
             }
         }
+    }
+
+    private fun attemptLoginGuest() {
+        val username = "Гость"
+
+        showMessage("Вход успешен!", false)
+        AppPreferences.isGuestMode = true
+        navigateToCatalog(username, "00000000")
     }
 
     private fun createEmptyStatistic(currentDate: String): String {

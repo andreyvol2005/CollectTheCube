@@ -27,6 +27,7 @@ class CatalogActivity : AppCompatActivity() {
     private lateinit var stagesRecyclerView: RecyclerView
     private lateinit var currentUser: String
     private lateinit var barChart: BarChart
+    private lateinit var TitleState: TextView
     private var userStatistic: String = ""
 
     private val db = Firebase.firestore
@@ -45,14 +46,23 @@ class CatalogActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_catalog)
 
-        currentUser = intent.getStringExtra("username") ?: ""
-        stagesProgress = intent.getStringExtra("stages_progress") ?: "00000000"
+        if (!AppPreferences.isGuestMode) {
+            currentUser = intent.getStringExtra("username") ?: ""
+            stagesProgress = intent.getStringExtra("stages_progress") ?: "00000000"
+        }
 
         initCatalogData()
         initViews()
         setupRecyclerView()
 
         barChart = findViewById(R.id.barChart)
+        TitleState = findViewById(R.id.TitleStats)
+
+        if (!AppPreferences.isGuestMode) {
+            TitleState.text = "Статистика обучения за неделю"
+        } else {
+            TitleState.text = "Статистика не доступна в режиме Гость"
+        }
         loadUserStatistics()
     }
 
@@ -137,8 +147,10 @@ class CatalogActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        updateStagesProgressFromFirebase()
-        loadUserStatistics()
+        if (!AppPreferences.isGuestMode) {
+            updateStagesProgressFromFirebase()
+            loadUserStatistics()
+        }
     }
 
     private fun initCatalogData() {
@@ -175,16 +187,27 @@ class CatalogActivity : AppCompatActivity() {
                 stageCubeImageView.setImageResource(catalogItem.imageResId)
                 stageTitleTextView.text = catalogItem.title
 
-                val isCompleted = stagesProgress[position] == '1'
+                if (!AppPreferences.isGuestMode) {
+                    val isCompleted = stagesProgress[position] == '1'
 
-                if (isCompleted) {
-                    stageStatusTextView.text = "Изучено"
-                    stageStatusTextView.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.completed_color))
-                } else {
-                    stageStatusTextView.text = "Изучить"
-                    stageStatusTextView.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.pending_color))
+                    if (isCompleted) {
+                        stageStatusTextView.text = "Изучено"
+                        stageStatusTextView.setTextColor(
+                            ContextCompat.getColor(
+                                holder.itemView.context,
+                                R.color.completed_color
+                            )
+                        )
+                    } else {
+                        stageStatusTextView.text = "Изучить"
+                        stageStatusTextView.setTextColor(
+                            ContextCompat.getColor(
+                                holder.itemView.context,
+                                R.color.pending_color
+                            )
+                        )
+                    }
                 }
-
                 holder.itemView.setOnClickListener {
                     onCatalogItemClick(position)
                 }
@@ -204,8 +227,12 @@ class CatalogActivity : AppCompatActivity() {
             if (!catalogItem.isRotationGuide) {
                 putExtra("stage_index", position - 1)
             }
-            putExtra("username", currentUser)
-            startActivity(this)
+            if (!AppPreferences.isGuestMode) {
+                putExtra("username", currentUser)
+                startActivity(this)
+            } else {
+                startActivity(this)
+            }
         }
     }
 
@@ -224,29 +251,5 @@ class CatalogActivity : AppCompatActivity() {
                     }
                 }
             }
-    }
-
-    // Метод для обновления прогресса этапа (если нужен из других активностей)
-    fun updateStageProgress(stageIndex: Int, completed: Boolean) {
-        if (stageIndex in 0 until stagesProgress.length) {
-            val newProgress = StringBuilder(stagesProgress).apply {
-                setCharAt(stageIndex, if (completed) '1' else '0')
-            }.toString()
-
-            db.collection("users")
-                .whereEqualTo("username", currentUser)
-                .limit(1)
-                .get()
-                .addOnSuccessListener { querySnapshot ->
-                    if (!querySnapshot.isEmpty) {
-                        val document = querySnapshot.documents[0]
-                        document.reference.update("stagesProgress", newProgress)
-                            .addOnSuccessListener {
-                                stagesProgress = newProgress
-                                stagesRecyclerView.adapter?.notifyDataSetChanged()
-                            }
-                    }
-                }
-        }
     }
 }
