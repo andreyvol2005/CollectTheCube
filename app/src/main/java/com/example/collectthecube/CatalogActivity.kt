@@ -21,6 +21,8 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.utils.ColorTemplate
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import androidx.fragment.app.DialogFragment
+
 
 class CatalogActivity : AppCompatActivity() {
 
@@ -28,6 +30,7 @@ class CatalogActivity : AppCompatActivity() {
     private lateinit var currentUser: String
     private lateinit var barChart: BarChart
     private lateinit var TitleState: TextView
+    private lateinit var settingsIcon: ImageView
     private var userStatistic: String = ""
 
     private val db = Firebase.firestore
@@ -64,6 +67,7 @@ class CatalogActivity : AppCompatActivity() {
             TitleState.text = "Статистика не доступна в режиме Гость"
         }
         loadUserStatistics()
+
     }
 
     private fun loadUserStatistics() {
@@ -168,6 +172,11 @@ class CatalogActivity : AppCompatActivity() {
 
     private fun initViews() {
         stagesRecyclerView = findViewById(R.id.stagesRecyclerView)
+        val settingsIcon = findViewById<ImageView>(R.id.settingsIcon)
+        settingsIcon.setOnClickListener {
+            val dialog = DialogFragment()
+            dialog.show(supportFragmentManager, "themes_dialog")
+        }
     }
 
     private fun setupRecyclerView() {

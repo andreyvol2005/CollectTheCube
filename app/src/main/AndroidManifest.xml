@@ -15,6 +15,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CollectTheCube">
         <activity
+            android:name=".DialogFragment"
+            android:exported="false"
+            android:theme="@style/Theme.CollectTheCube" />
+        <activity
+            android:name=".dialog_settings"
+            android:exported="false"
+            android:theme="@style/Theme.CollectTheCube" />
+        <activity
             android:name=".RotationGuideActivity"
             android:exported="false" />
         <activity
