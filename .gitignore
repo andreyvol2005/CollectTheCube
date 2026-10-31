@@ -47,3 +47,6 @@ Thumbs.db
 
 # Kotlin
 *.kotlin_module
+
+# Kotlin error logs
+.kotlin/errors/
